@@ -1,5 +1,11 @@
 import streamlit as st
 
+st.write("Secrets loaded:", "auth" in st.secrets)
+st.write("Google config loaded:", "google" in st.secrets.get("auth", {}))
+st.stop()
+
+
+
 ALLOWED_EMAILS = st.secrets.auth.allowed_emails
 
 if not st.user.is_logged_in:
