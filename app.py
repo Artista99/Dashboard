@@ -8,7 +8,6 @@ st.write("client_id ends correctly:", st.secrets["auth"]["google"]["client_id"].
 
 st.write("metadata url:", st.secrets["auth"]["google"]["server_metadata_url"])
 
-st.stop()
 
 
 
