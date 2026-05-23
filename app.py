@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title("Secure Stock Analysis Dashboard")
+st.title("Ignacio's Dashboard")
 
 # 1. Trigger the native Google login loop
 if not st.user.is_logged_in:
