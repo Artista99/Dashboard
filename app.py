@@ -19,4 +19,5 @@ if st.user.email not in ALLOWED_EMAILS:
 
 st.title("Hello World")
 st.write(f"Welcome, {st.user.name}!")
+st.write("this will be my personal dashbaord")
 st.button("Log out", on_click=st.logout)
