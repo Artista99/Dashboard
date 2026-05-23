@@ -2,9 +2,11 @@ import streamlit as st
 import os
 
 st.title("🛡️ Streamlit OAuth Diagnostic Panel")
-st.write("This page checks your cloud configuration live to find why the authentication loop is breaking.")
+st.write("This page checks your configuration live to find why the authentication loop is breaking.")
 
+# ==========================================
 # --- TEST 1: Check Secrets Parsing ---
+# ==========================================
 st.header("1. Configuration & Secrets Check")
 try:
     auth_secrets = st.secrets.get("auth", {})
@@ -22,9 +24,11 @@ try:
 except Exception as e:
     st.error(f"❌ Failed to parse secrets: {e}")
 
----
+st.markdown("---")
 
-# --- TEST 2: URL & Environment Consistency Check ---
+# ==========================================
+# --- TEST 2: URL & Environment Check ---
+# ==========================================
 st.header("2. URL Match Validation")
 
 # Detect the current URL from Streamlit's internal header system
@@ -36,8 +40,9 @@ st.write(f"**Live Browser Host Detected:** `https://{host_header}`")
 configured_uri = auth_secrets.get("redirect_uri", "NOT CONFIGURED")
 st.write(f"**Your Configured Redirect URI:** `{configured_uri}`")
 
-# Run the alignment math
-expected_uri = f"https://{host_header}/oauth2callback"
+# Run the alignment check
+expected_uri = f"https://{host_header}/oauth2callback" if "localhost" not in host_header else f"http://{host_header}/oauth2callback"
+
 if configured_uri.strip() == expected_uri.strip():
     st.success("✅ Perfect Alignment! Your configuration matches your live browser URL.")
 else:
@@ -45,21 +50,25 @@ else:
     st.code(f"Your secret says: {configured_uri}\nBut the live app expects: {expected_uri}")
     st.info("If these do not match character-for-character, Google will drop the connection instantly.")
 
----
+st.markdown("---")
 
+# ==========================================
 # --- TEST 3: Check Environment & Libraries ---
+# ==========================================
 st.header("3. Package Dependency Verification")
 try:
     import authlib
     st.success(f"✅ `authlib` is installed correctly (Version: {authlib.__version__})")
 except ImportError:
-    st.error("❌ `authlib` is missing entirely from the production container. Check your requirements.txt.")
+    st.error("❌ `authlib` is missing entirely from the environment. Check your requirements.txt.")
 
----
+st.markdown("---")
 
+# ==========================================
 # --- TEST 4: The Live Trigger ---
+# ==========================================
 st.header("4. Test OAuth Handshake Trigger")
-st.write("If the checks above are green, click below to try triggering the native framework. Watch closely to see if it immediately goes white or drops an internal error.")
+st.write("If the checks above are green, click below to try triggering the native framework. Watch closely to see if it immediately goes white or drops an error.")
 
 if not st.user.is_logged_in:
     if st.button("Test Login Loop", type="primary"):
