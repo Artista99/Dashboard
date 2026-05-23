@@ -1,20 +1,10 @@
 import streamlit as st
 
-st.write("auth keys:", list(st.secrets["auth"].keys()))
-
-st.write("google keys:", list(st.secrets["auth"]["google"].keys()))
-
-st.write("client_id ends correctly:", st.secrets["auth"]["google"]["client_id"].endswith(".apps.googleusercontent.com"))
-
-st.write("metadata url:", st.secrets["auth"]["google"]["server_metadata_url"])
-
-
-
-
-ALLOWED_EMAILS = st.secrets.auth.allowed_emails
+ALLOWED_EMAILS = set(st.secrets["auth"]["allowed_emails"])
 
 if not st.user.is_logged_in:
-    st.button("Log in with Google", on_click=st.login("google"))
+    if st.button("Log in with Google"):
+        st.login("google")
     st.stop()
 
 if st.user.email not in ALLOWED_EMAILS:
