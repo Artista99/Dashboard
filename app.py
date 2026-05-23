@@ -1,10 +1,10 @@
 import streamlit as st
 
-st.write(st.secrets["auth"].keys())
+#st.write(st.secrets["auth"].keys())
 
-st.write("google" in st.secrets["auth"])
+#st.write("google" in st.secrets["auth"])
 
-st.stop()
+#st.stop()
 
 
 ALLOWED_EMAILS = st.secrets.auth.allowed_emails
