@@ -1,1 +1,2 @@
 streamlit[auth]>=1.42.0
+httpx
