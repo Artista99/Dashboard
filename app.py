@@ -15,7 +15,7 @@ st.stop()
 ALLOWED_EMAILS = st.secrets.auth.allowed_emails
 
 if not st.user.is_logged_in:
-    st.button("Log in with Google", on_click=st.login)
+    st.button("Log in with Google", on_click=st.login("google"))
     st.stop()
 
 if st.user.email not in ALLOWED_EMAILS:
