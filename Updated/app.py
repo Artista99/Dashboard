@@ -7,33 +7,31 @@ from google import genai
 from google.genai import types as genai_types
 
 st.title("Ignacio's Dashboard")
-
 # =========================
 # 1. AUTHENTICATION
 # =========================
 
-if not st.user.is_logged_in:
-    st.info("Please log in to access the application dashboard.")
-    if st.button("Log in with Google", type="primary"):
-        st.login("google")
-    st.stop()
+# if not st.user.is_logged_in:
+#     st.info("Please log in to access the application dashboard.")
+#     if st.button("Log in with Google", type="primary"):
+#         st.login("google")
+#     st.stop()
 
-user_info = st.user
-user_email = user_info.get("email", "").lower()
-allowed_list = [email.lower() for email in st.secrets["app_access"]["allowed_emails"]]
+# user_info = st.user
+# user_email = user_info.get("email", "").lower()
+# allowed_list = [email.lower() for email in st.secrets["app_access"]["allowed_emails"]]
 
-if user_email not in allowed_list:
-    st.error(f"Access Denied: The account {user_email} is not authorized to view this application.")
-    if st.button("Log out / Switch Account"):
-        st.logout()
-    st.stop()
+# if user_email not in allowed_list:
+#     st.error(f"Access Denied: The account {user_email} is not authorized to view this application.")
+#     if st.button("Log out / Switch Account"):
+#         st.logout()
+#     st.stop()
 
-# Everything below is protected
+# # Everything below is protected
 # st.success(f"Access Granted. Welcome back, {user_info.get('name')}!")
 
-if st.button("Log out"):
-    st.logout()
-
+# if st.button("Log out"):
+#     st.logout()
 
 # =========================
 # 2. LOAD TICKERS FROM CSV
